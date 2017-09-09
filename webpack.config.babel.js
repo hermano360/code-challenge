@@ -2,12 +2,17 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {HotModuleReplacementPlugin} from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-// ...
 const defaultEnv = {
     dev: true,
     production: false,
 };
+
+const postcssPlugins = [
+  require('postcss-cssnext')(),
+  require('postcss-modules-values')
+];
 
 const scssLoader = [
   { loader: 'style-loader' },
@@ -32,14 +37,18 @@ export default (env = defaultEnv) => ({
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.min.js',
+  },
+  resolve: {
+    extensions: [".js", ".json", ".css"]
   },
   plugins: [
     ...env.dev ? [
-      // Webpack Development Plugins
       new HotModuleReplacementPlugin(),
     ] : [
-      // Webpack Production Plugins
+      new UglifyJSPlugin({
+        sourceMap: true
+      }),
       new ExtractTextPlugin('[name].css'),
     ],
     new HtmlWebpackPlugin({
@@ -55,7 +64,7 @@ export default (env = defaultEnv) => ({
         include: path.join(__dirname, 'src'),
         use: [
           {
-            loader: 'babel',
+            loader: 'babel-loader',
             options: {
               babelrc: false,
               presets: [
@@ -79,6 +88,7 @@ export default (env = defaultEnv) => ({
     ]
   },
   devServer: {
-    hot: true,
+    hot: env.dev
   },
+  devtool: env.dev ? 'cheap-module-eval-source-map' : 'source-map',
 });
