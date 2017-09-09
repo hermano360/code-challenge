@@ -1,22 +1,28 @@
 {
-  "name": "react-babel-webpack2",
+  "name": "tovia-code-challenge",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --env.dev",
-    "production": "webpack -p --env.production"
+    "production": "webpack -p --env.production",
+    "test": "standard --fix && standard"
   },
   "keywords": [],
-  "author": "",
+  "author": "Herminio Garcia",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.18.0",
+    "clipboard": "^1.7.1",
     "express": "^4.15.4",
     "postcss-import": "^10.0.0",
     "react": "^15.6.1",
+    "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.3",
-    "react-toolbox": "^2.0.0-beta.12"
+    "react-toolbox": "^2.0.0-beta.12",
+    "simple-encryptor": "^1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -35,6 +41,7 @@
     "postcss-mixins": "^6.1.0",
     "postcss-modules-values": "^1.3.0",
     "sass-loader": "^6.0.6",
+    "standard": "^10.0.3",
     "style-loader": "^0.18.2",
     "uglify-js-brunch": "^2.10.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
